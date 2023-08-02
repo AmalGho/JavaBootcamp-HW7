@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -69,21 +70,25 @@ public class Main2 {
         System.out.println("you have an account now..\n" + acc);
     }
     public static Account chooseAccount() throws Exception{
-        String[][] accounts = {
-                {"1", "Amal", String.valueOf(100000)},
-                {"2", "Nuha", String.valueOf(20000)},
-                {"3", "Razan", String.valueOf(50000)},
-                {"4", "Sara", String.valueOf(200000)}
-        };
+
+        Account ac1 = new Account("1", "amal", 100000);
+        Account ac2 = new Account("2", "Nuha", 20000);
+        Account ac3 = new Account("3", "Razan", 50000);
+        Account ac4 = new Account("4", "Sara", 30000);
 
         Account acc = null;
+
+        ArrayList<Account> list = new ArrayList<>();
+        list.add(ac1);
+        list.add(ac2);
+        list.add(ac3);
+        list.add(ac4);
+
         String name = input.nextLine();
 
-        for (int i = 0; i < accounts.length; i++) {
-            for (int j = 0; j < accounts[0].length; j++) {
-                if (accounts[i][j].equalsIgnoreCase(name)) {
-                    acc = new Account(accounts[i][0], accounts[i][1], Integer.parseInt(accounts[i][2]));
-                }
+        for (Account a : list) {
+            if (a.getName().equalsIgnoreCase(name)) {
+                acc = a;
             }
         }
 
@@ -148,7 +153,7 @@ public class Main2 {
 
             if (amount <= 0 ) {
                 System.out.println("failed... you cannot debit negative amounts");
-            }else if ( amount < acc.getBalance()) {
+            }else if ( amount <= acc.getBalance()) {
                 acc.credit(amount);
                 System.out.println("\nsuccessful transaction.. \n ***  your balance now " + acc.getBalance());
             }else System.out.println(acc.getName() + " you do not have enough money to do this transaction...");
